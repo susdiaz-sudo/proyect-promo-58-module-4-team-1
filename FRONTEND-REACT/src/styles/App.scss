@@ -462,3 +462,22 @@ fieldset {
 .icon__github {
   background-image: url("../images/icons/github.svg");
 }
+
+/* LANDING PAGE */
+
+.cards-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+@media screen and (min-width: 768px) {
+  .cards-container {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 900px;
+    justify-self: center;
+    gap: 2rem;
+  }
+}

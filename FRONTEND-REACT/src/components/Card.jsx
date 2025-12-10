@@ -13,29 +13,29 @@ function Card({ formData }) {
           }}
         ></div>
         <p className="card__job">
-          {formData.job === "" ? "Full Stack Developer" : formData.job}
+          {!formData.job ? "Full Stack Developer" : formData.job}
         </p>
         <h3 className="card__name">
-          {formData.author === "" ? "Emmelie Björklund" : formData.author}
+          {!formData.author ? "Emmelie Björklund" : formData.author}
         </h3>
       </div>
 
       <div className="card__project">
         <h3 className="card__name">
-          {formData.name === "" ? "Elegant workspace" : formData.name}
+          {!formData.name ? "Elegant workspace" : formData.name}
         </h3>
         <p className="card__slogan">
-          {formData.slogan === "" ? "Diseños exlusivos" : formData.slogan}
+          {!formData.slogan ? "Diseños exlusivos" : formData.slogan}
         </p>
         <h3 className="card__descriptionTitle">Product description</h3>
         <p className="card__description">
-          {formData.desc === ""
+          {!formData.desc
             ? "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quasi corporis et molestiae libero iure repellendus possimus voluptates deleniti eligendi perspiciatis! Atque voluptates aut cum, quam accusantium nostrum accusamus fuga dicta."
             : formData.desc}
         </p>
         <div className="card__technicalInfo">
           <p className="card__technologies">
-            {formData.technologies === ""
+            {!formData.technologies
               ? "React JS - HTML - CSS"
               : formData.technologies}
           </p>
