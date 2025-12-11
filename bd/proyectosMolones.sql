@@ -18,7 +18,7 @@ SET @MYSQLDUMP_TEMP_LOG_BIN = @@SESSION.SQL_LOG_BIN;
 SET @@SESSION.SQL_LOG_BIN= 0;
 
 --
--- GTID state at the beginning of the backup 
+-- GTID state at the beginning of the backup
 --
 
 SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'ca1d265c-d66d-11f0-9b5a-383d8d09878c:1-12';
@@ -37,9 +37,7 @@ CREATE TABLE `author` (
   `image` text COLLATE utf8mb4_general_ci,
   `description` text COLLATE utf8mb4_general_ci,
   `fkprojects` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_author_projects` (`fkprojects`),
-  CONSTRAINT `fk_author_projects` FOREIGN KEY (`fkprojects`) REFERENCES `projects` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -67,7 +65,12 @@ CREATE TABLE `projects` (
   `photo` text COLLATE utf8mb4_general_ci,
   `repo` text COLLATE utf8mb4_general_ci,
   `demo` text COLLATE utf8mb4_general_ci,
-  PRIMARY KEY (`id`)
+  `fk_author` INT DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_projects_author` (`fk_author`),
+  CONSTRAINT `fk_projects_author`
+  FOREIGN KEY (`fk_author`) REFERENCES author(`id`)
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
