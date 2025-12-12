@@ -1,6 +1,7 @@
 import Hero from "./layout/Hero";
 import Card from "./Card";
 import { Link } from "react-router";
+import CardList from "./CardList";
 
 function LandingPage() {
   const cardsData = [{}, {}, {}, {}];
@@ -12,11 +13,7 @@ function LandingPage() {
           Ver proyectos
         </Link>
       </Hero>
-      <div className="cards-container">
-        {cardsData.map((cardData, index) => (
-          <Card key={index} formData={cardData} />
-        ))}
-      </div>
+      <CardList cardsData={cardsData} />
     </>
   );
 }
