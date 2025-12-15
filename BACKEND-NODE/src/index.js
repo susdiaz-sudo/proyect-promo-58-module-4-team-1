@@ -1,26 +1,88 @@
-const express = require('express');
-const path = require('node:path');
+// Importamos Express: framework para crear servidores
+const express = require("express");
 
+// Importamos path: módulo nativo de Node para trabajar con rutas de carpetas
+const path = require("node:path");
 
+// Importamos cors: permite que el frontend haga peticiones al backend
+const cors = require("cors");
+
+// Creamos la aplicación de Express
 const app = express();
+
+// Activamos CORS para permitir peticiones desde otros orígenes
+app.use(cors());
+
+// Puerto donde se levantará el servidor
 const port = 20291;
 
-app.listen(port, () =>{
-  console.log(`El servidor ya está arrancado: <http://localhost:${port}/>`)
+
+
+// --------------------------------------------------
+// 1️⃣ RUTA AL BUILD DE REACT
+// --------------------------------------------------
+
+
+// __dirname apunta a: BACKEND-NODE/src, es la carpeta donde nos encontramos
+// Con los '..' subimos carpetas hasta la raíz del proyecto
+// y entramos en FRONTEND-REACT/dist
+//
+// Resultado final:
+// PROYECTO/FRONTEND-REACT/dist
+const reactDistPath = path.join(
+  __dirname,
+  "..",
+  "..",
+  "FRONTEND-REACT",
+  "dist"
+);
+
+
+// --------------------------------------------------
+// 2️⃣ SERVIDOR DE ARCHIVOS ESTÁTICOS
+// --------------------------------------------------
+
+
+// Este middleware sirve archivos tal cual están en dist:
+// - index.html
+// - assets/*.js
+// - assets/*.css
+// - vite.svg
+//
+// Ejemplos:
+// /assets/index-XXXX.js -> dist/assets/index-XXXX.js
+// /vite.svg -> dist/vite.svg
+app.use(express.static(reactDistPath));
+
+
+// --------------------------------------------------
+// 3️⃣ ARRANQUE DEL SERVIDOR
+// --------------------------------------------------
+app.listen(port, () => {
+  console.log(`El servidor ya está arrancado: <http://localhost:${port}/>`);
 });
 
-app.use( express.static( path.join(__dirname, '..', './FRONTEND-REACT')  ) );
+// --------------------------------------------------
+// 4️⃣ CATCH-ALL PARA REACT (SPA)
+// --------------------------------------------------
 
 
-// ENDPOINT
-app.get('/', (req, res) => {
-  // Código que atiende a la petición/request GET http://localhost:3000/
-
-  res.send('Holis!');
+// Este middleware se ejecuta SOLO si:
+// - No existe un archivo estático
+// - Ningún middleware anterior ha respondido
+//
+// Sirve index.html para cualquier ruta:
+// / -> index.html
+// /login -> index.html
+// /users/3 -> index.html
+//
+// React Router se encarga luego de la navegación
+//
+// IMPORTANTE:
+// En Express 5 NO se puede usar app.get('*')
+// Por eso usamos app.use sin ruta
+app.use((req, res) => {
+  res.sendFile(path.join(reactDistPath, "index.html"));
 });
 
-app.get(/.*/, (req, res) => {
-  // Código que atiende a la petición GET http://localhost:3000/*
 
-  res.status(404).send('No encontrado.');
-});
