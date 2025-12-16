@@ -16,18 +16,25 @@ app.use(cors());
 // Puerto donde se levantará el servidor
 const port = 3000;
 
+let data= [{}, {}, {}, {}];
+
 // --------------------------------------------------
 // API
 // --------------------------------------------------
 
+
+
 app.post("/api/projectCard", (req, res) => {
+
+  data.push(req.body);
+  res.status (200).json({ success: true});
   // Aquí iría la lógica para guardar el proyecto
   //res.json({ success: true, cardURL: "http://localhost:3000/card/123" });
 });
 
 app.get("/api/projectCards", (req, res) => {
   // Aquí iría la lógica para obtener los proyectos
-  res.json([{}, {}, {}, {}]);
+  res.json(data);
 });
 
 

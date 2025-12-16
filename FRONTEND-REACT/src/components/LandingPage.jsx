@@ -2,16 +2,17 @@ import Hero from "./layout/Hero";
 import Card from "./Card";
 import { Link } from "react-router";
 import CardList from "./CardList";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function LandingPage() {
   const [cardsData, setCardsData] = useState([]);
-
-  fetch("http://localhost:3000/api/projectCards")
-    .then((res) => res.json())
-    .then((data) => {
-      setCardsData(data);
-    });
+  useEffect(() => {
+    fetch("http://localhost:3000/api/projectCards")
+      .then((res) => res.json())
+      .then((data) => {
+        setCardsData(data);
+      });
+  }, [cardsData]);
 
   return (
     <>
