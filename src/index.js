@@ -13,6 +13,8 @@ const app = express();
 // Activamos CORS para permitir peticiones desde otros orígenes
 app.use(cors());
 
+app.use(express.json())
+
 // Puerto donde se levantará el servidor
 const port = 3000;
 

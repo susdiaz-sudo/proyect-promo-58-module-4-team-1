@@ -1,5 +1,4 @@
 import Hero from "./layout/Hero";
-import Card from "./Card";
 import { Link } from "react-router";
 import CardList from "./CardList";
 import { useState, useEffect } from "react";
@@ -12,7 +11,7 @@ function LandingPage() {
       .then((data) => {
         setCardsData(data);
       });
-  }, [cardsData]);
+  }, []);
 
   return (
     <>

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import GetAvatar from "../components/GetAvatar";
 
 function Form({
@@ -8,8 +9,17 @@ function Form({
   handleHeroImage,
   handleSubmit,
 }) {
-  const [savedUrl, setSavedUrl] = useState(null);
-  const handleClick = () => {
+  const navigate = useNavigate();
+  const [alert, setAlert] = useState(null);
+
+  useEffect(() => {
+    if (!alert) return;
+    const t = setTimeout(() => setAlert(null), 3000);
+    return () => clearTimeout(t);
+  }, [alert]);
+
+  const handleClick = (ev) => {
+    ev.preventDefault();
     fetch("http://localhost:3000/api/projectCard", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -18,9 +28,13 @@ function Form({
       .then((res) => res.json())
       .then((responseData) => {
         if (responseData.success) {
-          setSavedUrl(responseData.cardURL);
+          setAlert({ type: "ok", msg: "Proyecto guardado" });
+          setTimeout(() => navigate("/"), 3000);
+        } else {
+          setAlert({ type: "error", msg: "No se pudo guardar" });
         }
-      });
+      })
+      .catch(() => setAlert({ type: "error", msg: "Error de red o servidor" }));
   };
   return (
     <form onSubmit={handleSubmit} className="addForm">
@@ -126,13 +140,10 @@ function Form({
         <button onClick={handleClick} className="button--large">
           Guardar proyecto
         </button>
-        {savedUrl && (
-          <small>
-            Proyecto guardado:{" "}
-            <a href={savedUrl} target="_blank" rel="noopener noreferrer">
-              {savedUrl}
-            </a>{" "}
-          </small>
+        {alert && (
+          <div className={alert.type === "ok" ? "alert--ok" : "alert--error"}>
+            {alert.msg}
+          </div>
         )}
       </fieldset>
     </form>
