@@ -1,35 +1,27 @@
 import { useState } from "react";
 import GetAvatar from "../components/GetAvatar";
 
-
-
 function Form({
   formData,
   handleInput,
   handleAuthorImage,
   handleHeroImage,
   handleSubmit,
-}) 
-
-{
-  const [savedUrl,setSavedUrl] = useState(null);
+}) {
+  const [savedUrl, setSavedUrl] = useState(null);
   const handleClick = () => {
-  fetch ("https://dev.adalab.es/api/projectCard",
-    {
+    fetch("http://localhost:3000/api/projectCard", {
       method: "POST",
-      headers: {"Content-Type" : "application/json"},
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     })
-    .then (res => res.json())
-    .then (responseData => {
-      if (responseData.success) {
-         setSavedUrl( responseData.cardURL);
-
-      } 
-      
-    })
-
-};
+      .then((res) => res.json())
+      .then((responseData) => {
+        if (responseData.success) {
+          setSavedUrl(responseData.cardURL);
+        }
+      });
+  };
   return (
     <form onSubmit={handleSubmit} className="addForm">
       <h2 className="title">Información</h2>
@@ -131,12 +123,19 @@ function Form({
             text="Subir foto de la autora"
           />
         </label>
-        <button onClick={handleClick} className="button--large">Guardar proyecto</button>
+        <button onClick={handleClick} className="button--large">
+          Guardar proyecto
+        </button>
         {savedUrl && (
-        <small>Proyecto guardado:  <a href={savedUrl} target="_blank" rel="noopener noreferrer">{savedUrl}</a> </small>)}
+          <small>
+            Proyecto guardado:{" "}
+            <a href={savedUrl} target="_blank" rel="noopener noreferrer">
+              {savedUrl}
+            </a>{" "}
+          </small>
+        )}
       </fieldset>
     </form>
   );
 }
 export default Form;
-

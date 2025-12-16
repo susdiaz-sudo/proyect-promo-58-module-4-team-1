@@ -20,11 +20,15 @@ const port = 3000;
 // API
 // --------------------------------------------------
 
+app.post("/api/projectCard", (req, res) => {
+  // Aquí iría la lógica para guardar el proyecto
+  //res.json({ success: true, cardURL: "http://localhost:3000/card/123" });
+});
 
-
-
-
-
+app.get("/api/projectCards", (req, res) => {
+  // Aquí iría la lógica para obtener los proyectos
+  res.json([{}, {}, {}, {}]);
+});
 
 
 // --------------------------------------------------
