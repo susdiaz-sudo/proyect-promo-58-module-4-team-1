@@ -10,6 +10,12 @@ const cors = require("cors");
 // Creamos la aplicación de Express
 const app = express();
 
+// Importamos y configuramos dotenv para gestionar variables de entorno
+require("dotenv").config();
+
+// Importa mysql2/promise para trabajar con bases de datos MySQL de forma asíncrona
+const mysql = require("mysql2/promise");
+
 // Activamos CORS para permitir peticiones desde otros orígenes
 app.use(cors());
 
@@ -24,7 +30,19 @@ let data= [{}, {}, {}, {}];
 // API
 // --------------------------------------------------
 
+const dataConnection = {
+  host: process.env.MYSQL_HOST,
+  port: process.env.MYSQL_PORT,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DB,
+}
 
+const createConnection = async () => {
+  const connection = await mysql.createConnection(dataConnection);
+  await connection.connect();
+  return connection;
+};
 
 app.post("/api/projectCard", (req, res) => {
 
@@ -34,8 +52,11 @@ app.post("/api/projectCard", (req, res) => {
   //res.json({ success: true, cardURL: "http://localhost:3000/card/123" });
 });
 
-app.get("/api/projectCards", (req, res) => {
+app.get("/api/projectCards", async (req, res) => {
   // Aquí iría la lógica para obtener los proyectos
+  const queryAllProjects = "SELECT * FROM projects;";
+  const connection =  await createConnection();
+  const [data] = await connection.execute(queryAllProjects);
   res.json(data);
 });
 
