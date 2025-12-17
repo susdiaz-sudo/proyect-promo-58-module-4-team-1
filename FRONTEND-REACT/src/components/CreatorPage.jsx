@@ -13,7 +13,7 @@ function CreatorPage() {
     repo: "",
     demo: "",
     technologies: "",
-    desc: "",
+    description: "",
     author: "",
     job: "",
     image: "",

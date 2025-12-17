@@ -29,9 +29,9 @@ function Card({ formData }) {
         </p>
         <h3 className="card__descriptionTitle">Product description</h3>
         <p className="card__description">
-          {!formData.desc
+          {!formData.description
             ? "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quasi corporis et molestiae libero iure repellendus possimus voluptates deleniti eligendi perspiciatis! Atque voluptates aut cum, quam accusantium nostrum accusamus fuga dicta."
-            : formData.desc}
+            : formData.description}
         </p>
         <div className="card__technicalInfo">
           <p className="card__technologies">

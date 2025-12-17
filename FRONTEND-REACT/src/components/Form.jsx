@@ -91,12 +91,12 @@ function Form({
         <textarea
           className="addForm__input"
           type="text"
-          name="desc"
-          id="desc"
+          name="description"
+          id="description"
           placeholder="Descripción"
           rows="5"
           onInput={handleInput}
-          value={formData.desc}
+          value={formData.description}
         ></textarea>
       </fieldset>
 

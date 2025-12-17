@@ -54,7 +54,7 @@ app.post("/api/projectCard", (req, res) => {
 
 app.get("/api/projectCards", async (req, res) => {
   // Aquí iría la lógica para obtener los proyectos
-  const queryAllProjects = "SELECT * FROM projects;";
+  const queryAllProjects = "SELECT * from projects p  JOIN author a ON p.fk_author  = a.id;";
   const connection =  await createConnection();
   const [data] = await connection.execute(queryAllProjects);
   res.json(data);
