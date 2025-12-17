@@ -20,7 +20,7 @@ function Form({
 
   const handleClick = (ev) => {
     ev.preventDefault();
-    fetch("http://localhost:3000/api/projectCard", {
+    fetch("http://localhost:3000/api/projectCards", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -141,7 +141,11 @@ function Form({
           Guardar proyecto
         </button>
         {alert && (
-          <div className={alert.type === "ok" ? "alert--ok" : "alert--error"}>
+          <div
+            className={
+              alert.type === "ok" ? "alert alert--ok" : "alert alert--error"
+            }
+          >
             {alert.msg}
           </div>
         )}
