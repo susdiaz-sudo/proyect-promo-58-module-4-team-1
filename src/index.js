@@ -19,7 +19,7 @@ const mysql = require("mysql2/promise");
 // Activamos CORS para permitir peticiones desde otros orígenes
 app.use(cors());
 
-app.use(express.json())
+app.use(express.json({limit:'1mb'}));
 
 // Puerto donde se levantará el servidor
 const port = 3000;
@@ -36,7 +36,7 @@ const dataConnection = {
   user: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DB,
-}
+};
 
 const createConnection = async () => {
   const connection = await mysql.createConnection(dataConnection);
@@ -45,41 +45,59 @@ const createConnection = async () => {
 };
 
 app.post("/api/projectCard", async (req, res) => {
+  let connection = await createConnection();
 
-  const connection =  await createConnection();
+  const projectTitle = req.body.name;
+  const projectSlogan = req.body.slogan;
+  const projectRepo = req.body.repo;
+  const projectDemo = req.body.demo;
+  const projectTechnologies = req.body.technologies;
+  const projectDescription = req.body.description;
+  const authorName = req.body.author;
+  const authorJob = req.body.job;
+  const authorPhoto = req.body.photo;
+  const projectImage = req.body.image;
 
-  console.log('Lo que llega en el body', req.body);
-  const projectTitle = req.body.formData.name;
-  const projectSlogan= req.body.formData.slogan;
-  const projectRepo = req.body.formData.repo;
-  const projectDemo = req.body.formData.demo;
-  const projectTechnologies = req.body.formData.technologies;
-  const projectDescription = req.body.formData.description;
-  const authorName = req.body.formData.author;
-  const authorJob = req.body.formData.job;
-  const authorPhoto = req.body.formData.photo;
-  const projectImage = req.body.formData.image;
+  const queryInsertAuthor =
+    "INSERT INTO author(author,job,photo) VALUES (?,?,?)";
 
+  const [resultInsertAuthor] = await connection.execute(queryInsertAuthor, [
+    authorName,
+    authorJob,
+    authorPhoto,
+  ]);
+  console.log(
+    "Este es el id del autor que acabamos de insertar",
+    resultInsertAuthor.insertId
+  );
 
-  const queryInsertAuthor = '';
-  const queryInsertProject = '';
+  const queryInsertProject =
+    "INSERT INTO projects (name, description, technologies, image, repo, demo, slogan, fk_author) VALUES(?,?,?,?,?,?,?,?)";
+  const [resultInsertProject] = await connection.execute(queryInsertProject, [
+    projectTitle,
+    projectDescription,
+    projectTechnologies,
+    projectImage,
+    projectRepo,
+    projectDemo,
+    projectSlogan,
+    resultInsertAuthor.insertId,
+  ]);
 
-  //data.push(req.body);
-
-  // Aquí iría la lógica para guardar el proyecto
-  //res.json({ success: true, cardURL: "http://localhost:3000/card/123" });
-  res.status (200).json({ success: true});
+  res.json({
+    success: true,
+    cardURL: `http://localhost:3000/project/${resultInsertProject.insertId}`,
+  });
 });
 
 app.get("/api/projects", async (req, res) => {
-  // Aquí iría la lógica para obtener los proyectos
-  const queryAllProjects = "SELECT * from projects p  JOIN author a ON p.fk_author  = a.id;";
-  const connection =  await createConnection();
+  const queryAllProjects =
+    "SELECT * from projects p  JOIN author a ON p.fk_author  = a.id;";
+  const connection = await createConnection();
   const [data] = await connection.execute(queryAllProjects);
   connection.end();
   res.json(data);
 });
-
 
 // --------------------------------------------------
 // SERVIDOR DE FICHEROS ESTÁTICOS
@@ -92,22 +110,15 @@ app.get("/api/projects", async (req, res) => {
 // y entramos en FRONTEND-REACT/dist
 // Hemos tenido que compilar el proyecto de React para generar la carpeta dist
 // y que sirva los ficheros desde ahí
-const reactDistPath = path.join(
-  __dirname,
-  "..",
-  "FRONTEND-REACT",
-  "dist"
-);
+const reactDistPath = path.join(__dirname, "..", "FRONTEND-REACT", "dist");
 
 // 2️⃣ SIRVE LOS ARCHIVOS ESTÁTICOS QUE ESTÁN EN LA RUTA QUE HEMOS DEFINIDO
 app.use(express.static(reactDistPath));
-
 
 // 3️⃣ ARRANQUE DEL SERVIDOR
 app.listen(port, () => {
   console.log(`El servidor ya está arrancado: <http://localhost:${port}/>`);
 });
-
 
 // 4️⃣ CATCH-ALL PARA REACT (SPA)
 // Este middleware se ejecuta SOLO si:
@@ -127,7 +138,3 @@ app.listen(port, () => {
 app.use((req, res) => {
   res.sendFile(path.join(reactDistPath, "index.html"));
 });
-
-
-
-
