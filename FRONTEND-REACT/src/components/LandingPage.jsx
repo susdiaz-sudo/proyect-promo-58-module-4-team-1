@@ -17,7 +17,7 @@ function LandingPage() {
     <>
       <Hero>
         <Link className="button--link" to="/creator">
-          Ver proyectos
+          Crear proyecto
         </Link>
       </Hero>
       <CardList cardsData={cardsData} />
