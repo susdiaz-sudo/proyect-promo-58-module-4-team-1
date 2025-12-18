@@ -11,8 +11,6 @@ import LandingPage from "./LandingPage";
 function App() {
   return (
     <div className="container">
-      {/* {alert && <div className="overlay"></div>}
-      {alert && <div className={`alert alert--${alert.type}`}>{alert.msg}</div>} */}
       <Header />
 
       <main className="main">

@@ -141,13 +141,16 @@ function Form({
           Guardar proyecto
         </button>
         {alert && (
-          <div
-            className={
-              alert.type === "ok" ? "alert alert--ok" : "alert alert--error"
-            }
-          >
-            {alert.msg}
-          </div>
+          <>
+            <div className="overlay"></div>
+            <div
+              className={
+                alert.type === "ok" ? "alert alert--ok" : "alert alert--error"
+              }
+            >
+              {alert.msg}
+            </div>
+          </>
         )}
       </fieldset>
     </form>
