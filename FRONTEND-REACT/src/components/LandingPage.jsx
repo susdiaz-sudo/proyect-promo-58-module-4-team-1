@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 function LandingPage() {
   const [cardsData, setCardsData] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:3000/api/projectCards")
+    fetch("http://localhost:3000/api/projects")
       .then((res) => res.json())
       .then((data) => {
         setCardsData(data);

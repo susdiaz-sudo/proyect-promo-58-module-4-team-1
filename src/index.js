@@ -24,7 +24,7 @@ app.use(express.json())
 // Puerto donde se levantará el servidor
 const port = 3000;
 
-let data= [{}, {}, {}, {}];
+//let data= [{}, {}, {}, {}];
 
 // --------------------------------------------------
 // API
@@ -44,19 +44,39 @@ const createConnection = async () => {
   return connection;
 };
 
-app.post("/api/projectCard", (req, res) => {
+app.post("/api/projectCard", async (req, res) => {
 
-  data.push(req.body);
-  res.status (200).json({ success: true});
+  const connection =  await createConnection();
+
+  console.log('Lo que llega en el body', req.body);
+  const projectTitle = req.body.formData.name;
+  const projectSlogan= req.body.formData.slogan;
+  const projectRepo = req.body.formData.repo;
+  const projectDemo = req.body.formData.demo;
+  const projectTechnologies = req.body.formData.technologies;
+  const projectDescription = req.body.formData.description;
+  const authorName = req.body.formData.author;
+  const authorJob = req.body.formData.job;
+  const authorPhoto = req.body.formData.photo;
+  const projectImage = req.body.formData.image;
+
+
+  const queryInsertAuthor = '';
+  const queryInsertProject = '';
+
+  //data.push(req.body);
+
   // Aquí iría la lógica para guardar el proyecto
   //res.json({ success: true, cardURL: "http://localhost:3000/card/123" });
+  res.status (200).json({ success: true});
 });
 
-app.get("/api/projectCards", async (req, res) => {
+app.get("/api/projects", async (req, res) => {
   // Aquí iría la lógica para obtener los proyectos
   const queryAllProjects = "SELECT * from projects p  JOIN author a ON p.fk_author  = a.id;";
   const connection =  await createConnection();
   const [data] = await connection.execute(queryAllProjects);
+  connection.end();
   res.json(data);
 });
 

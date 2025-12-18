@@ -20,7 +20,7 @@ function Form({
 
   const handleClick = (ev) => {
     ev.preventDefault();
-    fetch("http://localhost:3000/api/projectCards", {
+    fetch("http://localhost:3000/api/projectCard", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
