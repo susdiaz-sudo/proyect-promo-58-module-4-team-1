@@ -151,7 +151,7 @@ function Form({
               }
             >
               <p>{alert.msg}</p>
-              {alert.type === "ok" && <p>{url}</p>}
+              {alert.type === "ok" && <a href= {url}>Haz click para verlo</a>}
             </div>
           </>
         )}
