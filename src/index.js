@@ -21,6 +21,8 @@ app.use(cors());
 
 app.use(express.json({limit:'1mb'}));
 
+app.set("view engine", "ejs");
+
 // Puerto donde se levantará el servidor
 const port = 3000;
 
@@ -99,6 +101,9 @@ app.get("/api/projects", async (req, res) => {
   res.json(data);
 });
 
+app.get("/api/project/:id", async (req, res) => {
+  res.render("dataErrorDetail");
+});
 // --------------------------------------------------
 // SERVIDOR DE FICHEROS ESTÁTICOS
 // --------------------------------------------------
@@ -110,7 +115,7 @@ app.get("/api/projects", async (req, res) => {
 // y entramos en FRONTEND-REACT/dist
 // Hemos tenido que compilar el proyecto de React para generar la carpeta dist
 // y que sirva los ficheros desde ahí
-const reactDistPath = path.join(__dirname, "..", "frontend-static");
+const reactDistPath = path.join(__dirname, "..", "frontend-static", "dist");
 
 // 2️⃣ SIRVE LOS ARCHIVOS ESTÁTICOS QUE ESTÁN EN LA RUTA QUE HEMOS DEFINIDO
 app.use(express.static(reactDistPath));

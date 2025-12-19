@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error page</title>
+  <link rel="stylesheet" href="../FRONTEND-REACT/src/styles/App.scss">
+</head>
+
+<body>
+  <header className="header">
+    <a className="header__brand" href="./" title="Haz click para volver a la página inicial">
+      <img className="header__companyLogo" src={Laptop} alt="Logo proyectos molones" />
+      <h1 className="header__title">Proyectos molones</h1>
+    </a>
+    <img className="logoSponsor" src={Logo} alt="Logo Adalab" />
+  </header>
+  <main className="main">
+    <div className="card">
+      <h2 className="cardTitleError">¡Ups! Algo ha ido mal...</h2> /*Faltan estilos del contenido de main*/
+      <p className="cardText">Por favor, vuelve a intentarlo más tarde.</p>
+      <a className="cardLink" href="./">Volver al inicio</a>
+    </div>
+    <footer className="footer">
+      <img className="logoSponsor" src={Logo} alt="Logo Adalab" />
+    </footer>
+</body>
+
+</html>
