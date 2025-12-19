@@ -110,7 +110,7 @@ app.get("/api/projects", async (req, res) => {
 // y entramos en FRONTEND-REACT/dist
 // Hemos tenido que compilar el proyecto de React para generar la carpeta dist
 // y que sirva los ficheros desde ahí
-const reactDistPath = path.join(__dirname, "..", "FRONTEND-REACT", "dist");
+const reactDistPath = path.join(__dirname, "..", "frontend-static");
 
 // 2️⃣ SIRVE LOS ARCHIVOS ESTÁTICOS QUE ESTÁN EN LA RUTA QUE HEMOS DEFINIDO
 app.use(express.static(reactDistPath));
