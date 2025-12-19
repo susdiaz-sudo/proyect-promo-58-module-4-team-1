@@ -19,7 +19,9 @@ const mysql = require("mysql2/promise");
 // Activamos CORS para permitir peticiones desde otros orígenes
 app.use(cors());
 
-app.use(express.json({limit:'1mb'}));
+app.use(express.json({ limit: "1mb" }));
+
+app.set("view engine", "ejs");
 
 // Puerto donde se levantará el servidor
 const port = 3000;
@@ -97,6 +99,10 @@ app.get("/api/projects", async (req, res) => {
   const [data] = await connection.execute(queryAllProjects);
   connection.end();
   res.json(data);
+});
+
+app.get("/api/project/:projectId", async (req, res) => {
+  res.send("Funciona el enpoint");
 });
 
 // --------------------------------------------------
