@@ -11,6 +11,7 @@ function Form({
 }) {
   const navigate = useNavigate();
   const [alert, setAlert] = useState(null);
+  const [url, setUrl] = useState("");
 
   useEffect(() => {
     if (!alert) return;
@@ -29,6 +30,7 @@ function Form({
       .then((responseData) => {
         if (responseData.success) {
           setAlert({ type: "ok", msg: "Proyecto guardado" });
+          setUrl(responseData.cardURL);
           setTimeout(() => navigate("/"), 3000);
         } else {
           setAlert({ type: "error", msg: "No se pudo guardar" });
@@ -148,7 +150,8 @@ function Form({
                 alert.type === "ok" ? "alert alert--ok" : "alert alert--error"
               }
             >
-              {alert.msg}
+              <p>{alert.msg}</p>
+              {alert.type === "ok" && <p>{url}</p>}
             </div>
           </>
         )}
