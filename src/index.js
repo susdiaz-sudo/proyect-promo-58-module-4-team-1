@@ -19,7 +19,9 @@ const mysql = require("mysql2/promise");
 // Activamos CORS para permitir peticiones desde otros orígenes
 app.use(cors());
 
-app.use(express.json({limit:'1mb'}));
+app.use(express.json({ limit: "1mb" }));
+
+app.set("view engine", "ejs");
 
 // Puerto donde se levantará el servidor
 const port = 3000;
@@ -97,6 +99,24 @@ app.get("/api/projects", async (req, res) => {
   const [data] = await connection.execute(queryAllProjects);
   connection.end();
   res.json(data);
+});
+
+app.get("/api/project/:projectId", async (req, res) => {
+
+  // Creamos la consulta mandando el id que recibimos en las query params
+  const queryOneProject = "SELECT p.*, a.author, a.job, a.photo FROM projects p JOIN author a ON a.id = p.fk_author WHERE p.id = ?;"
+
+  // Nos conectamos a la BBDD
+  const connection = await createConnection();
+
+  // Ejecutamos la consulta y guardamos los datos en el objeto data
+  const [data] = await connection.query(queryOneProject,[req.params.projectId]);
+
+  console.log('Los datos que obtenemos de la BBDD', data)
+  // Respondemos con la pagina de detalles mandandole los datos que hemos obtenido
+  //res.render("details", data);
+  // Cerramos la conexion
+  connection.end();
 });
 
 // --------------------------------------------------
