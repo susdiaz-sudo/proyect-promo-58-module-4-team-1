@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+
 import GetAvatar from "../components/GetAvatar";
 
 function Form({
@@ -9,14 +9,16 @@ function Form({
   handleHeroImage,
   handleSubmit,
 }) {
-  const navigate = useNavigate();
   const [alert, setAlert] = useState(null);
   const [url, setUrl] = useState("");
 
   useEffect(() => {
     if (!alert) return;
-    const t = setTimeout(() => setAlert(null), 3000);
-    return () => clearTimeout(t);
+
+    if (alert === "error") {
+      const t = setTimeout(() => setAlert(null), 3000);
+      return () => clearTimeout(t);
+    }
   }, [alert]);
 
   const handleClick = (ev) => {
@@ -31,7 +33,6 @@ function Form({
         if (responseData.success) {
           setAlert({ type: "ok", msg: "Proyecto guardado" });
           setUrl(responseData.cardURL);
-          setTimeout(() => navigate("/"), 3000);
         } else {
           setAlert({ type: "error", msg: "No se pudo guardar" });
         }
@@ -144,14 +145,14 @@ function Form({
         </button>
         {alert && (
           <>
-            <div className="overlay"></div>
+            <div className="overlay"  onClick={() => setAlert(null)}></div>
             <div
               className={
                 alert.type === "ok" ? "alert alert--ok" : "alert alert--error"
               }
             >
               <p>{alert.msg}</p>
-              {alert.type === "ok" && <a href= {url}>Haz click para verlo</a>}
+              {alert.type === "ok" && <a href={url} target="_blank">Haz click para verlo</a>}
             </div>
           </>
         )}
