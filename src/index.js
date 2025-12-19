@@ -114,7 +114,7 @@ app.get("/api/project/:projectId", async (req, res) => {
 
   console.log('Los datos que obtenemos de la BBDD', data)
   // Respondemos con la pagina de detalles mandandole los datos que hemos obtenido
-  //res.render("details", data);
+  res.render("details", data);
   // Cerramos la conexion
   connection.end();
 });
