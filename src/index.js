@@ -91,7 +91,31 @@ app.post("/api/projectCard", async (req, res) => {
     cardURL: `http://localhost:3000/project/${resultInsertProject.insertId}`,
   });
 });
+app.get("/api/project/:projectId", async (req, res) => {
+  try {
+    // Creamos la consulta mandando el id que recibimos en las query params
+    const queryOneProject =
+      "SELECT p.*, a.author AS author, a.job AS job, a.photo AS photo FROM projects p JOIN author a ON a.id = p.fk_author WHERE p.id = ?;";
 
+    // Nos conectamos a la BBDD
+    const connection = await createConnection();
+    const [rows] = await connection.query(queryOneProject, [
+      req.params.projectId,
+    ]);
+
+    if (rows.length === 0) {
+      connection.end();
+      return res.status(404).send("Proyecto no encontrado");
+    }
+
+    connection.end();
+    console.log(rows[0]);
+    return res.render("details", { project: rows[0] });
+  } catch (err) {
+    console.error("Error en /api/project/:projectId", err);
+    return res.status(500).send("Error servidor");
+  }
+});
 app.get("/api/projects", async (req, res) => {
   const queryAllProjects =
     "SELECT * from projects p  JOIN author a ON p.fk_author  = a.id;";
@@ -99,24 +123,6 @@ app.get("/api/projects", async (req, res) => {
   const [data] = await connection.execute(queryAllProjects);
   connection.end();
   res.json(data);
-});
-
-app.get("/api/project/:projectId", async (req, res) => {
-
-  // Creamos la consulta mandando el id que recibimos en las query params
-  const queryOneProject = "SELECT p.*, a.author, a.job, a.photo FROM projects p JOIN author a ON a.id = p.fk_author WHERE p.id = ?;"
-
-  // Nos conectamos a la BBDD
-  const connection = await createConnection();
-
-  // Ejecutamos la consulta y guardamos los datos en el objeto data
-  const [data] = await connection.query(queryOneProject,[req.params.projectId]);
-
-  console.log('Los datos que obtenemos de la BBDD', data)
-  // Respondemos con la pagina de detalles mandandole los datos que hemos obtenido
-  res.render("details", data);
-  // Cerramos la conexion
-  connection.end();
 });
 
 // --------------------------------------------------
@@ -155,6 +161,3 @@ app.listen(port, () => {
 // IMPORTANTE:
 // En Express 5 NO se puede usar app.get('*')
 // Por eso usamos app.use sin ruta
-app.use((req, res) => {
-  res.sendFile(path.join(reactDistPath, "index.html"));
-});
