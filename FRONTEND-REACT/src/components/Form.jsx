@@ -33,6 +33,7 @@ function Form({
         if (responseData.success) {
           setAlert({ type: "ok", msg: "Proyecto guardado" });
           setUrl(responseData.cardURL);
+          localStorage.removeItem("form.backup");
         } else {
           setAlert({ type: "error", msg: "No se pudo guardar" });
         }
