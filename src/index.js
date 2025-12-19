@@ -102,7 +102,16 @@ app.get("/api/projects", async (req, res) => {
 });
 
 app.get("/api/project/:projectId", async (req, res) => {
-  res.send("Funciona el enpoint");
+
+  const queryOneProject = "SELECT * from projects p WHERE p.id = ?;"
+
+  const connection = await createConnection();
+
+  const [data] = await connection.query(queryOneProject,[req.params.projectId]);
+
+  console.log(data);
+  
+  connection.end();
 });
 
 // --------------------------------------------------
