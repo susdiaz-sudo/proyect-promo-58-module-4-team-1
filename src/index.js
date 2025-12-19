@@ -103,14 +103,14 @@ app.get("/api/projects", async (req, res) => {
 
 app.get("/api/project/:projectId", async (req, res) => {
 
-  const queryOneProject = "SELECT * from projects p WHERE p.id = ?;"
+  const queryOneProject = "SELECT p.*, a.author, a.job, a.photo FROM projects p JOIN authors a ON a.id = p.fk_author WHERE p.id = ?;"
 
   const connection = await createConnection();
 
   const [data] = await connection.query(queryOneProject,[req.params.projectId]);
 
   console.log(data);
-  
+
   connection.end();
 });
 
