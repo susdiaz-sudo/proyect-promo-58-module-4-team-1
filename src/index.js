@@ -104,7 +104,7 @@ app.get("/api/projects", async (req, res) => {
 app.get("/api/project/:projectId", async (req, res) => {
 
   // Creamos la consulta mandando el id que recibimos en las query params
-  const queryOneProject = "SELECT p.*, a.author, a.job, a.photo FROM projects p JOIN authors a ON a.id = p.fk_author WHERE p.id = ?;"
+  const queryOneProject = "SELECT p.*, a.author, a.job, a.photo FROM projects p JOIN author a ON a.id = p.fk_author WHERE p.id = ?;"
 
   // Nos conectamos a la BBDD
   const connection = await createConnection();
@@ -114,7 +114,7 @@ app.get("/api/project/:projectId", async (req, res) => {
 
   console.log('Los datos que obtenemos de la BBDD', data)
   // Respondemos con la pagina de detalles mandandole los datos que hemos obtenido
-  res.render("details", data);
+  //res.render("details", data);
   // Cerramos la conexion
   connection.end();
 });
