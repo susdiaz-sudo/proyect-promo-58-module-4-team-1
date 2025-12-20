@@ -68,10 +68,7 @@ app.post("/api/projectCard", async (req, res) => {
     authorJob,
     authorPhoto,
   ]);
-  console.log(
-    "Este es el id del autor que acabamos de insertar",
-    resultInsertAuthor.insertId
-  );
+
 
   const queryInsertProject =
     "INSERT INTO projects (name, description, technologies, image, repo, demo, slogan, fk_author) VALUES(?,?,?,?,?,?,?,?)";
@@ -88,7 +85,7 @@ app.post("/api/projectCard", async (req, res) => {
 
   res.json({
     success: true,
-    cardURL: `http://localhost:3000/project/${resultInsertProject.insertId}`,
+    cardURL: `http://localhost:3000/api/project/${resultInsertProject.insertId}`,
   });
 });
 app.get("/api/project/:projectId", async (req, res) => {
