@@ -3,8 +3,8 @@ import Card from "./Card";
 const CardList = ({cardsData}) => {
   return (
     <div className="cards-container">
-        {cardsData.map((cardData, index) => (
-          <Card key={index} formData={cardData} />
+        {cardsData.map((cardData) => (
+          <Card key={cardData.id} formData={cardData} />
         ))}
       </div>
   );
