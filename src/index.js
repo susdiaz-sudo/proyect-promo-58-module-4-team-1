@@ -138,26 +138,18 @@ app.get("/api/projects", async (req, res) => {
 // y que sirva los ficheros desde ahí
 const reactDistPath = path.join(__dirname, "..", "frontend-static");
 
+//Ruta para lso ficehros estáticos de ejs
+const viewsStyles = path.join(__dirname, "..", "public");
+
 // 2️⃣ SIRVE LOS ARCHIVOS ESTÁTICOS QUE ESTÁN EN LA RUTA QUE HEMOS DEFINIDO
 app.use(express.static(reactDistPath));
+app.use(express.static(viewsStyles));
+
+
 
 // 3️⃣ ARRANQUE DEL SERVIDOR
 app.listen(port, () => {
   console.log(`El servidor ya está arrancado: <http://localhost:${port}/>`);
 });
 
-// 4️⃣ CATCH-ALL PARA REACT (SPA)
-// Este middleware se ejecuta SOLO si:
-// - No existe un archivo estático
-// - Ningún middleware anterior ha respondido
-//
-// Sirve index.html para cualquier ruta:
-// / -> index.html
-// /login -> index.html
-// /users/3 -> index.html
-//
-// React Router se encarga luego de la navegación
-//
-// IMPORTANTE:
-// En Express 5 NO se puede usar app.get('*')
-// Por eso usamos app.use sin ruta
+// Mirar endpoitn para rutas no encontradas
