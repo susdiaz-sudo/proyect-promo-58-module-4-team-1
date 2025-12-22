@@ -4,7 +4,7 @@ const CardList = ({cardsData}) => {
   return (
     <div className="cards-container">
         {cardsData.map((cardData) => (
-          <Card key={cardData.id} formData={cardData} />
+          <Card key={cardData.projectId} formData={cardData} />
         ))}
       </div>
   );

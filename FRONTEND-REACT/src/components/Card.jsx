@@ -2,7 +2,7 @@ function Card({ formData }) {
   return (
     <a
       className="card"
-      href={`http://localhost:3000/api/project/${formData.id}`}
+      href={`http://localhost:3000/api/project/${formData.projectId}`}
     >
       <h2 className="card__projectTitle">
         <span className="card__projectTitle--text">Personal project card</span>
@@ -43,20 +43,20 @@ function Card({ formData }) {
               : formData.technologies}
           </p>
 
-          <a
+          <div
             className="icon icon__www"
             href={formData.demo}
             title="Haz click para ver el proyecto online"
           >
             {formData.demo}
-          </a>
-          <a
+          </div>
+          <div
             className="icon icon__github"
             href={formData.repo}
             title="Haz click para ver el código del proyecto"
           >
             {formData.repo}
-          </a>
+          </div>
         </div>
       </div>
     </a>
