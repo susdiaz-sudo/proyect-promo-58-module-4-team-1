@@ -98,7 +98,7 @@
   padding: 19px;
 }
 
-.card {
+.cardDetail {
   display: flex;
   flex-direction: column;
   align-items: center;
