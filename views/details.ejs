@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Detalle del proyecto</title>
+    <link rel="stylesheet" href="/styles/details.css" />
+  </head>
+
+  <body>
+    <main class="detail">
+      <!-- AUTOR -->
+      <section class="author">
+        <div class="author__photo"></div>
+        <p class="author__job">Full Stack Developer</p>
+        <h2 class="author__name"><%= project.author %></h2>
+      </section>
+
+      <!-- PROYECTO -->
+      <section class="project">
+        <h1 class="project__name">Elegant workspace</h1>
+        <p class="project__slogan">Diseños exclusivos</p>
+
+        <h3 class="project__title">Product description</h3>
+        <p class="project__description">
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quasi
+          corporis et molestiae libero iure repellendus possimus voluptates
+          deleniti eligendi perspiciatis! Atque voluptates aut cum, quam
+          accusantium nostrum accusamus fuga dicta.
+        </p>
+
+        <p class="project__technologies">React JS - HTML - CSS</p>
+
+        <div class="project__links">
+          <a href="#" class="project__link demo">Ver demo</a>
+          <a href="#" class="project__link repo">Ver repositorio</a>
+        </div>
+      </section>
+
+      <!-- VOLVER -->
+      <a href="../frontend-static/index.html" class="back">
+        ⬅ Volver a proyectos
+      </a>
+    </main>
+  </body>
+</html>

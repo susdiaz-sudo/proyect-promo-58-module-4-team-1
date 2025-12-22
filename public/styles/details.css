@@ -1,0 +1,103 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f4f4;
+  padding: 40px;
+}
+
+.detail {
+  max-width: 800px;
+  margin: auto;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+/* AUTOR */
+.author {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.author__photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #cccccc;
+  margin: 0 auto 15px auto;
+}
+
+.author__job {
+  color: #777777;
+  font-size: 14px;
+}
+
+.author__name {
+  margin-top: 5px;
+  font-size: 20px;
+}
+
+/* PROYECTO */
+.project__name {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+.project__slogan {
+  text-align: center;
+  color: #666666;
+  margin-bottom: 25px;
+}
+
+.project__title {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.project__description {
+  font-size: 15px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.project__technologies {
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+/* LINKS */
+.project__links {
+  display: flex;
+  gap: 15px;
+}
+
+.project__link {
+  text-decoration: none;
+  padding: 10px 18px;
+  border-radius: 5px;
+  color: white;
+  font-size: 14px;
+}
+
+.project__link.demo {
+  background-color: #007bff;
+}
+
+.project__link.repo {
+  background-color: #333333;
+}
+
+/* VOLVER */
+.back {
+  display: inline-block;
+  margin-top: 35px;
+  text-decoration: none;
+  color: #007bff;
+  font-size: 14px;
+}

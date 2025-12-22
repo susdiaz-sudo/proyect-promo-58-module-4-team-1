@@ -19,7 +19,9 @@ const mysql = require("mysql2/promise");
 // Activamos CORS para permitir peticiones desde otros orígenes
 app.use(cors());
 
-app.use(express.json({limit:'1mb'}));
+app.use(express.json({ limit: "1mb" }));
+
+app.set("view engine", "ejs");
 
 app.set("view engine", "ejs");
 
@@ -68,10 +70,7 @@ app.post("/api/projectCard", async (req, res) => {
     authorJob,
     authorPhoto,
   ]);
-  console.log(
-    "Este es el id del autor que acabamos de insertar",
-    resultInsertAuthor.insertId
-  );
+
 
   const queryInsertProject =
     "INSERT INTO projects (name, description, technologies, image, repo, demo, slogan, fk_author) VALUES(?,?,?,?,?,?,?,?)";
@@ -88,10 +87,34 @@ app.post("/api/projectCard", async (req, res) => {
 
   res.json({
     success: true,
-    cardURL: `http://localhost:3000/project/${resultInsertProject.insertId}`,
+    cardURL: `http://localhost:3000/api/project/${resultInsertProject.insertId}`,
   });
 });
+app.get("/api/project/:projectId", async (req, res) => {
+  try {
+    // Creamos la consulta mandando el id que recibimos en las query params
+    const queryOneProject =
+      "SELECT p.*, a.author AS author, a.job AS job, a.photo AS photo FROM projects p JOIN author a ON a.id = p.fk_author WHERE p.id = ?;";
 
+    // Nos conectamos a la BBDD
+    const connection = await createConnection();
+    const [rows] = await connection.query(queryOneProject, [
+      req.params.projectId,
+    ]);
+
+    if (rows.length === 0) {
+      connection.end();
+      return res.status(404).send("Proyecto no encontrado");
+    }
+
+    connection.end();
+    console.log(rows[0]);
+    return res.render("details", { project: rows[0] });
+  } catch (err) {
+    console.error("Error en /api/project/:projectId", err);
+    return res.status(500).send("Error servidor");
+  }
+});
 app.get("/api/projects", async (req, res) => {
   const queryAllProjects =
     "SELECT * from projects p  JOIN author a ON p.fk_author  = a.id;";
@@ -117,29 +140,18 @@ app.get("/api/project/:id", async (req, res) => {
 // y que sirva los ficheros desde ahí
 const reactDistPath = path.join(__dirname, "..", "frontend-static", "dist");
 
+//Ruta para lso ficehros estáticos de ejs
+const viewsStyles = path.join(__dirname, "..", "public");
+
 // 2️⃣ SIRVE LOS ARCHIVOS ESTÁTICOS QUE ESTÁN EN LA RUTA QUE HEMOS DEFINIDO
 app.use(express.static(reactDistPath));
+app.use(express.static(viewsStyles));
+
+
 
 // 3️⃣ ARRANQUE DEL SERVIDOR
 app.listen(port, () => {
   console.log(`El servidor ya está arrancado: <http://localhost:${port}/>`);
 });
 
-// 4️⃣ CATCH-ALL PARA REACT (SPA)
-// Este middleware se ejecuta SOLO si:
-// - No existe un archivo estático
-// - Ningún middleware anterior ha respondido
-//
-// Sirve index.html para cualquier ruta:
-// / -> index.html
-// /login -> index.html
-// /users/3 -> index.html
-//
-// React Router se encarga luego de la navegación
-//
-// IMPORTANTE:
-// En Express 5 NO se puede usar app.get('*')
-// Por eso usamos app.use sin ruta
-app.use((req, res) => {
-  res.sendFile(path.join(reactDistPath, "index.html"));
-});
+// Mirar endpoitn para rutas no encontradas

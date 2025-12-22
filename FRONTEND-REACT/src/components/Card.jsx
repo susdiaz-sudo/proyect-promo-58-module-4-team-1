@@ -1,6 +1,9 @@
 function Card({ formData }) {
   return (
-    <article className="card">
+    <a
+      className="card"
+      href={`http://localhost:3000/api/project/${formData.id}`}
+    >
       <h2 className="card__projectTitle">
         <span className="card__projectTitle--text">Personal project card</span>
       </h2>
@@ -56,7 +59,7 @@ function Card({ formData }) {
           </a>
         </div>
       </div>
-    </article>
+    </a>
   );
 }
 export default Card;
