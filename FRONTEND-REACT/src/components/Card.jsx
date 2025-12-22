@@ -43,20 +43,20 @@ function Card({ formData }) {
               : formData.technologies}
           </p>
 
-          <a
+          <div
             className="icon icon__www"
             href={formData.demo}
             title="Haz click para ver el proyecto online"
           >
             {formData.demo}
-          </a>
-          <a
+          </div>
+          <div
             className="icon icon__github"
             href={formData.repo}
             title="Haz click para ver el código del proyecto"
           >
             {formData.repo}
-          </a>
+          </div>
         </div>
       </div>
     </a>
