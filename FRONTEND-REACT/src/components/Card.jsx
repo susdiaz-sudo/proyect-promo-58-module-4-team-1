@@ -2,7 +2,7 @@ function Card({ formData }) {
   return (
     <a
       className="card"
-      href={`http://localhost:3000/api/project/${formData.id}`}
+      href={`http://localhost:3000/api/project/${formData.projectId}`}
     >
       <h2 className="card__projectTitle">
         <span className="card__projectTitle--text">Personal project card</span>
