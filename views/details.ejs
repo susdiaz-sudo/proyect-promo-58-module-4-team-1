@@ -10,29 +10,26 @@
     <main class="detail">
       <!-- AUTOR -->
       <section class="author">
-        <div class="author__photo"></div>
+        <div class="author__photo">
+          <img src="<%= project.photo %>" alt="Foto del autor" />
+        </div>
         <p class="author__job">Full Stack Developer</p>
         <h2 class="author__name"><%= project.author %></h2>
       </section>
 
       <!-- PROYECTO -->
       <section class="project">
-        <h1 class="project__name">Elegant workspace</h1>
-        <p class="project__slogan">Diseños exclusivos</p>
+        <h1 class="project__name"><%= project.name %></h1>
+        <p class="project__slogan"><%= project.slogan %></p>
 
         <h3 class="project__title">Product description</h3>
-        <p class="project__description">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quasi
-          corporis et molestiae libero iure repellendus possimus voluptates
-          deleniti eligendi perspiciatis! Atque voluptates aut cum, quam
-          accusantium nostrum accusamus fuga dicta.
-        </p>
+        <p class="project__description"><%= project.description %></p>
 
-        <p class="project__technologies">React JS - HTML - CSS</p>
+        <p class="project__technologies"><%= project.technologies %></p>
 
         <div class="project__links">
-          <a href="#" class="project__link demo">Ver demo</a>
-          <a href="#" class="project__link repo">Ver repositorio</a>
+          <a href="#" class="project__link demo"><%= project.demo %></a>
+          <a href="#" class="project__link repo"><%= project.repo %></a>
         </div>
       </section>
 
