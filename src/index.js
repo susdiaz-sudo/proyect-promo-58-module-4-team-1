@@ -91,7 +91,31 @@ app.post("/api/projectCard", async (req, res) => {
     cardURL: `http://localhost:3000/project/${resultInsertProject.insertId}`,
   });
 });
+app.get("/api/project/:projectId", async (req, res) => {
+  try {
+    // Creamos la consulta mandando el id que recibimos en las query params
+    const queryOneProject =
+      "SELECT p.*, a.author AS author, a.job AS job, a.photo AS photo FROM projects p JOIN author a ON a.id = p.fk_author WHERE p.id = ?;";
 
+    // Nos conectamos a la BBDD
+    const connection = await createConnection();
+    const [rows] = await connection.query(queryOneProject, [
+      req.params.projectId,
+    ]);
+
+    if (rows.length === 0) {
+      connection.end();
+      return res.status(404).send("Proyecto no encontrado");
+    }
+
+    connection.end();
+    console.log(rows[0]);
+    return res.render("details", { project: rows[0] });
+  } catch (err) {
+    console.error("Error en /api/project/:projectId", err);
+    return res.status(500).send("Error servidor");
+  }
+});
 app.get("/api/projects", async (req, res) => {
   const queryAllProjects =
     "SELECT * from projects p  JOIN author a ON p.fk_author  = a.id;";
@@ -99,24 +123,6 @@ app.get("/api/projects", async (req, res) => {
   const [data] = await connection.execute(queryAllProjects);
   connection.end();
   res.json(data);
-});
-
-app.get("/api/project/:projectId", async (req, res) => {
-
-  // Creamos la consulta mandando el id que recibimos en las query params
-  const queryOneProject = "SELECT p.*, a.author, a.job, a.photo FROM projects p JOIN author a ON a.id = p.fk_author WHERE p.id = ?;"
-
-  // Nos conectamos a la BBDD
-  const connection = await createConnection();
-
-  // Ejecutamos la consulta y guardamos los datos en el objeto data
-  const [data] = await connection.query(queryOneProject,[req.params.projectId]);
-
-  console.log('Los datos que obtenemos de la BBDD', data)
-  // Respondemos con la pagina de detalles mandandole los datos que hemos obtenido
-  res.render("details", data);
-  // Cerramos la conexion
-  connection.end();
 });
 
 // --------------------------------------------------
@@ -132,29 +138,18 @@ app.get("/api/project/:projectId", async (req, res) => {
 // y que sirva los ficheros desde ahí
 const reactDistPath = path.join(__dirname, "..", "frontend-static");
 
+//Ruta para lso ficehros estáticos de ejs
+const viewsStyles = path.join(__dirname, "..", "public");
+
 // 2️⃣ SIRVE LOS ARCHIVOS ESTÁTICOS QUE ESTÁN EN LA RUTA QUE HEMOS DEFINIDO
 app.use(express.static(reactDistPath));
+app.use(express.static(viewsStyles));
+
+
 
 // 3️⃣ ARRANQUE DEL SERVIDOR
 app.listen(port, () => {
   console.log(`El servidor ya está arrancado: <http://localhost:${port}/>`);
 });
 
-// 4️⃣ CATCH-ALL PARA REACT (SPA)
-// Este middleware se ejecuta SOLO si:
-// - No existe un archivo estático
-// - Ningún middleware anterior ha respondido
-//
-// Sirve index.html para cualquier ruta:
-// / -> index.html
-// /login -> index.html
-// /users/3 -> index.html
-//
-// React Router se encarga luego de la navegación
-//
-// IMPORTANTE:
-// En Express 5 NO se puede usar app.get('*')
-// Por eso usamos app.use sin ruta
-app.use((req, res) => {
-  res.sendFile(path.join(reactDistPath, "index.html"));
-});
+// Mirar endpoitn para rutas no encontradas
