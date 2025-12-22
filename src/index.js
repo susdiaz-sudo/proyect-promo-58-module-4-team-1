@@ -108,7 +108,6 @@ app.get("/api/project/:projectId", async (req, res) => {
     } else {
       res.render("dataErrorDetail");
     }
-
   } catch (err) {
     console.error("Error en /api/project/:projectId", err);
     return res.status(500).send("Error servidor");
@@ -116,7 +115,7 @@ app.get("/api/project/:projectId", async (req, res) => {
 });
 app.get("/api/projects", async (req, res) => {
   const queryAllProjects =
-    "SELECT p.id AS projectId, p.name, p.description, p.technologies, p.image, p.repo, p.demo, p.slogan, a.author, a.job, a.photo FROM projects p JOIN author a ON p.fk_author = a.id;";
+    "SELECT p.id, p.name, p.description, p.technologies, p.image, p.repo, p.demo, p.slogan, p.fk_author, a.id AS authorId, a.author, a.job, a.photo FROM projects p JOIN author a ON p.fk_author = a.id;";
   const connection = await createConnection();
   const [data] = await connection.execute(queryAllProjects);
   connection.end();
