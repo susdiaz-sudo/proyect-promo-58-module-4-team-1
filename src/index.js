@@ -71,7 +71,6 @@ app.post("/api/projectCard", async (req, res) => {
     authorPhoto,
   ]);
 
-
   const queryInsertProject =
     "INSERT INTO projects (name, description, technologies, image, repo, demo, slogan, fk_author) VALUES(?,?,?,?,?,?,?,?)";
   const [resultInsertProject] = await connection.execute(queryInsertProject, [
@@ -104,7 +103,7 @@ app.get("/api/project/:projectId", async (req, res) => {
 
     if (rows.length === 0) {
       connection.end();
-      return res.status(404).send("Proyecto no encontrado");
+      res.render("dataErrorDetail");
     }
 
     connection.end();
@@ -124,9 +123,6 @@ app.get("/api/projects", async (req, res) => {
   res.json(data);
 });
 
-app.get("/api/project/:id", async (req, res) => {
-  res.render("dataErrorDetail");
-});
 // --------------------------------------------------
 // SERVIDOR DE FICHEROS ESTÁTICOS
 // --------------------------------------------------
@@ -146,8 +142,6 @@ const viewsStyles = path.join(__dirname, "..", "public");
 // 2️⃣ SIRVE LOS ARCHIVOS ESTÁTICOS QUE ESTÁN EN LA RUTA QUE HEMOS DEFINIDO
 app.use(express.static(reactDistPath));
 app.use(express.static(viewsStyles));
-
-
 
 // 3️⃣ ARRANQUE DEL SERVIDOR
 app.listen(port, () => {
