@@ -1,4 +1,5 @@
-function Card({ formData }) {
+function Card({ formData, serverUrl }) {
+  
   return (
     <section className="card">
       <h2 className="card__projectTitle">
@@ -21,7 +22,7 @@ function Card({ formData }) {
       </div>
 
       <div className="">
-        <a className="card__project--link" href={`http://localhost:3000/api/project/${formData.id}`}>
+        <a className="card__project--link" href={`${serverUrl}/api/project/${formData.id}`}>
           <h3 className="card__name">
             {!formData.name ? "Elegant workspace" : formData.name}
           </h3>

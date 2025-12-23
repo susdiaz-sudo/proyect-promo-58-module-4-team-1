@@ -8,6 +8,10 @@ import Footer from "./layout/Footer";
 import CreatorPage from "./CreatorPage";
 import LandingPage from "./LandingPage";
 
+const serverUrl = import.meta.env.PROD
+  ? "https://proyect-promo-58-module-4-team-1.onrender.com"
+  : "http://localhost:3000";
+
 function App() {
   return (
     <div className="container">
@@ -15,8 +19,9 @@ function App() {
 
       <main className="main">
         <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/creator" element={<CreatorPage />} />
+          <Route path="/" element={<LandingPage serverUrl={serverUrl} />} />
+          <Route path="/creator" element={<CreatorPage serverUrl={serverUrl} />} />
+          <Route path="*" element={<p>Error 404: Página no encontrada</p>} />
         </Routes>
       </main>
 

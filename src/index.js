@@ -26,7 +26,7 @@ app.set("view engine", "ejs");
 app.set("view engine", "ejs");
 
 // Puerto donde se levantará el servidor
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 //let data= [{}, {}, {}, {}];
 
@@ -86,7 +86,7 @@ app.post("/api/projectCard", async (req, res) => {
 
   res.json({
     success: true,
-    cardURL: `http://localhost:3000/api/project/${resultInsertProject.insertId}`,
+    cardURL: `${req.headers.host}/api/project/${resultInsertProject.insertId}`,
   });
 });
 app.get("/api/project/:projectId", async (req, res) => {
@@ -148,7 +148,7 @@ app.get("/api/projects", async (req, res) => {
 // y entramos en FRONTEND-REACT/dist
 // Hemos tenido que compilar el proyecto de React para generar la carpeta dist
 // y que sirva los ficheros desde ahí
-const reactDistPath = path.join(__dirname, "..", "frontend-static", "dist");
+const reactDistPath = path.join(__dirname, "..", "frontend-static");
 
 //Ruta para lso ficehros estáticos de ejs
 const viewsStyles = path.join(__dirname, "..", "public");
@@ -163,3 +163,8 @@ app.listen(port, () => {
 });
 
 // Mirar endpoitn para rutas no encontradas
+
+// Código para que todas las rutas vayan a react
+app.get(/.*/, (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "frontend-static", "index.html"));
+});

@@ -8,6 +8,7 @@ function Form({
   handleAuthorImage,
   handleHeroImage,
   handleSubmit,
+  serverUrl,
 }) {
   const [alert, setAlert] = useState(null);
   const [url, setUrl] = useState("");
@@ -23,7 +24,7 @@ function Form({
 
   const handleClick = (ev) => {
     ev.preventDefault();
-    fetch("http://localhost:3000/api/projectCard", {
+    fetch(`${serverUrl}/api/projectsCard`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -146,14 +147,18 @@ function Form({
         </button>
         {alert && (
           <>
-            <div className="overlay"  onClick={() => setAlert(null)}></div>
+            <div className="overlay" onClick={() => setAlert(null)}></div>
             <div
               className={
                 alert.type === "ok" ? "alert alert--ok" : "alert alert--error"
               }
             >
               <p>{alert.msg}</p>
-              {alert.type === "ok" && <a href={url} target="_blank">Haz click para verlo</a>}
+              {alert.type === "ok" && (
+                <a href={url} target="_blank">
+                  Haz click para verlo
+                </a>
+              )}
             </div>
           </>
         )}

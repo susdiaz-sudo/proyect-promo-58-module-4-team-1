@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import {Link} from "react-router";
+import { Link } from "react-router";
 
 import Hero from "../components/layout/Hero";
 import Preview from "../components/Preview";
 import Form from "../components/Form";
 
-
-function CreatorPage() {
+function CreatorPage({ serverUrl }) {
   const inicialData = {
     name: "",
     slogan: "",
@@ -60,7 +59,9 @@ function CreatorPage() {
   return (
     <>
       <Hero>
-        <Link className="button--link" to="/">Volver al inicio</Link>
+        <Link className="button--link" to="/">
+          Volver al inicio
+        </Link>
       </Hero>
       <Preview formData={formData} />
       <Form
@@ -69,6 +70,7 @@ function CreatorPage() {
         handleSubmit={handleSubmit}
         handleAuthorImage={handleAuthorImage}
         handleHeroImage={handleHeroImage}
+        serverUrl={serverUrl}
       />
     </>
   );
