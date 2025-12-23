@@ -161,21 +161,17 @@ fieldset {
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border-width: 1px;
-  border-image-source: linear-gradient(
-    to bottom,
-    var(--color-white) 0%,
-    rgba(0, 0, 0, 0)
-  );
+  border-image-source: linear-gradient(to bottom,
+      var(--color-white) 0%,
+      rgba(0, 0, 0, 0));
   border-image-slice: 1;
-  background-image: linear-gradient(
-      to bottom,
+  background-image: linear-gradient(to bottom,
       var(--color-white),
-      var(--color-white)
-    ),
+      var(--color-white)),
     linear-gradient(to bottom, var(--color-white) 0%, rgba(0, 0, 0, 0));
   background-origin: border-box;
   background-clip: content-box, border-box;
-
+ 
 }
 
 .card .card__projectTitle {
@@ -191,21 +187,19 @@ fieldset {
 .card .card__projectTitle::before {
   content: "";
   position: absolute;
-   top: 0.6em;
-   height: 2px;
+  top: 0.6em;
+  height: 2px;
 
   left: 0;
   right: 0;
   z-index: 0;
 
-  background-image: linear-gradient(
-    to right,
-    white,
-    #232323 15%,
-    var(--color-black),
-    #232323 85%,
-    white
-  );
+  background-image: linear-gradient(to right,
+      white,
+      #232323 15%,
+      var(--color-black),
+      #232323 85%,
+      white);
 }
 
 .card .card__projectTitle--text {
@@ -245,7 +239,8 @@ fieldset {
 
 .card .card__project {
   margin-right: 10px;
-  &--link{
+
+  &--link {
     color: black;
   }
 }
@@ -259,6 +254,16 @@ fieldset {
 .card .card__descriptionTitle {
   font-weight: inherit;
   text-transform: capitalize;
+}
+
+.card__description {
+  display: -webkit-box;
+  line-clamp: inherit;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: normal;
+  word-break: break-word;
 }
 
 .card .card__technicalInfo {
@@ -280,11 +285,9 @@ fieldset {
 
   box-shadow: 2px 4px 4px 0 rgba(0, 0, 0, 0.25);
   border: solid 1px rgba(0, 0, 0, 0);
-  background-image: radial-gradient(
-    circle at 50% 50%,
-    var(--color-dusk),
-    #211e2e 92%
-  );
+  background-image: radial-gradient(circle at 50% 50%,
+      var(--color-dusk),
+      #211e2e 92%);
 }
 
 .addForm .title {
@@ -314,15 +317,13 @@ fieldset {
   margin-bottom: -2px;
   border-radius: inherit;
   background-color: transparent;
-  background-image: linear-gradient(
-    to left,
-    transparent,
-    #343045 25%,
-    #c0b7e8 45%,
-    var(--color-dark-lilac) 65%,
-    #343045 75%,
-    transparent
-  );
+  background-image: linear-gradient(to left,
+      transparent,
+      #343045 25%,
+      #c0b7e8 45%,
+      var(--color-dark-lilac) 65%,
+      #343045 75%,
+      transparent);
 }
 
 .addForm .addForm__group {
@@ -429,11 +430,9 @@ fieldset {
   text-align: center;
 
   border-radius: 40px;
-  background-image: linear-gradient(
-    to right,
-    var(--color-dark-lilac) -2%,
-    #c0b7e8 98%
-  );
+  background-image: linear-gradient(to right,
+      var(--color-dark-lilac) -2%,
+      #c0b7e8 98%);
 
   cursor: pointer;
 }
@@ -453,11 +452,9 @@ fieldset {
 
   border-radius: 40px;
   background-color: transparent;
-  background-image: linear-gradient(
-    to right,
-    var(--color-dark-lilac) -2%,
-    #c0b7e8 98%
-  );
+  background-image: linear-gradient(to right,
+      var(--color-dark-lilac) -2%,
+      #c0b7e8 98%);
 
   cursor: pointer;
 }
@@ -495,10 +492,12 @@ fieldset {
   &--error {
     background-color: var(--color-red);
   }
+
   a {
     color: var(--color-white);
     text-shadow: 1px 1px 10px var(--color-dark);
     text-decoration: none;
+
     &:hover {
       transform: scale(1.2);
     }

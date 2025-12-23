@@ -1,4 +1,5 @@
 function Card({ formData }) {
+  
   return (
     <section className="card">
       <h2 className="card__projectTitle">
