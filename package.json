@@ -7,7 +7,7 @@
     "start": "node src/index.js",
     "dev": "node --watch src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "rm -rf frontend-static ; cd FRONTEND-REACT ; npm run build ; mv dist ../frontend-static ; git add ../frontend-static ; git commit -m 'Add new version of React.' ; git push"
+    "deploy": "rm -rf frontend-static && cd FRONTEND-REACT && npm run build && rm -rf ../frontend-static && cp -R dist ../frontend-static && cd .. && git add frontend-static && git commit -m 'Add new version of React.' && git push"
   },
   "repository": {
     "type": "git",
