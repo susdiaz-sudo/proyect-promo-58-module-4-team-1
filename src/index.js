@@ -26,7 +26,7 @@ app.set("view engine", "ejs");
 app.set("view engine", "ejs");
 
 // Puerto donde se levantará el servidor
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 //let data= [{}, {}, {}, {}];
 
@@ -133,7 +133,7 @@ app.get("/api/projects", async (req, res) => {
 // y entramos en FRONTEND-REACT/dist
 // Hemos tenido que compilar el proyecto de React para generar la carpeta dist
 // y que sirva los ficheros desde ahí
-const reactDistPath = path.join(__dirname, "..", "frontend-static", "dist");
+const reactDistPath = path.join(__dirname, "..", "frontend-static");
 
 //Ruta para lso ficehros estáticos de ejs
 const viewsStyles = path.join(__dirname, "..", "public");
