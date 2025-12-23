@@ -21,6 +21,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage serverUrl={serverUrl} />} />
           <Route path="/creator" element={<CreatorPage serverUrl={serverUrl} />} />
+          <Route path="*" element={<p>Error 404: Página no encontrada</p>} />
         </Routes>
       </main>
 
