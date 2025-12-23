@@ -148,3 +148,8 @@ app.listen(port, () => {
 });
 
 // Mirar endpoitn para rutas no encontradas
+
+// Código para que todas las rutas vayan a react
+app.get(/.*/, (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "frontend-static", "index.html"));
+});
