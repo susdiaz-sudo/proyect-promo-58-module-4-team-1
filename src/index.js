@@ -23,12 +23,9 @@ app.use(express.json({ limit: "1mb" }));
 
 app.set("view engine", "ejs");
 
-app.set("view engine", "ejs");
 
 // Puerto donde se levantará el servidor
 const port = process.env.PORT || 3000;
-
-//let data= [{}, {}, {}, {}];
 
 // --------------------------------------------------
 // API
