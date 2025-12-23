@@ -1,9 +1,6 @@
 function Card({ formData }) {
-return (
-    <a
-      className="card"
-      href={`http://localhost:3000/api/project/${formData.id}`}
-    >
+  return (
+    <section className="card">
       <h2 className="card__projectTitle">
         <span className="card__projectTitle--text">Personal project card</span>
       </h2>
@@ -23,13 +20,16 @@ return (
         </h3>
       </div>
 
-      <div className="card__project">
-        <h3 className="card__name">
-          {!formData.name ? "Elegant workspace" : formData.name}
-        </h3>
-        <p className="card__slogan">
-          {!formData.slogan ? "Diseños exlusivos" : formData.slogan}
-        </p>
+      <div className="">
+        <a className="card__project--link" href={`http://localhost:3000/api/project/${formData.id}`}>
+          <h3 className="card__name">
+            {!formData.name ? "Elegant workspace" : formData.name}
+          </h3>
+
+          <p className="card__slogan">
+            {!formData.slogan ? "Diseños exlusivos" : formData.slogan}
+          </p>
+        </a>
         <h3 className="card__descriptionTitle">Product description</h3>
         <p className="card__description">
           {!formData.description
@@ -43,23 +43,23 @@ return (
               : formData.technologies}
           </p>
 
-          <div
+          <a
             className="icon icon__www"
             href={formData.demo}
             title="Haz click para ver el proyecto online"
           >
             {formData.demo}
-          </div>
-          <div
+          </a>
+          <a
             className="icon icon__github"
             href={formData.repo}
             title="Haz click para ver el código del proyecto"
           >
             {formData.repo}
-          </div>
+          </a>
         </div>
       </div>
-    </a>
+    </section>
   );
 }
 export default Card;

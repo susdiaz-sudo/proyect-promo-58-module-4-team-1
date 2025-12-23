@@ -105,7 +105,7 @@ fieldset {
     max-width: 980px;
     margin-inline: auto;
     display: grid;
-    grid-template-columns: 6fr 5fr;
+    grid-template-columns: 5fr 5fr;
     gap: 2rem;
   }
 }
@@ -175,6 +175,7 @@ fieldset {
     linear-gradient(to bottom, var(--color-white) 0%, rgba(0, 0, 0, 0));
   background-origin: border-box;
   background-clip: content-box, border-box;
+
 }
 
 .card .card__projectTitle {
@@ -190,8 +191,9 @@ fieldset {
 .card .card__projectTitle::before {
   content: "";
   position: absolute;
-  top: calc(50% - 1px);
-  bottom: calc(50% - 1px);
+   top: 0.6em;
+   height: 2px;
+
   left: 0;
   right: 0;
   z-index: 0;
@@ -207,8 +209,9 @@ fieldset {
 }
 
 .card .card__projectTitle--text {
+  display: inline-block;
   position: relative;
-  padding-inline: 0.1em;
+  padding-inline: 0.6em;
   z-index: 1;
   background-color: var(--color-white);
 }
@@ -237,10 +240,14 @@ fieldset {
 .card .card__name {
   font: var(--font-card-title);
   margin-bottom: 0.2rem;
+  font-weight: 700;
 }
 
 .card .card__project {
   margin-right: 10px;
+  &--link{
+    color: black;
+  }
 }
 
 .card .card__slogan {
