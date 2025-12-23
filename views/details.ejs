@@ -11,30 +11,76 @@
       <!-- AUTOR -->
       <section class="author">
         <div class="author__photo">
-          <img src="<%= project.photo %>" alt="Foto del autor" />
+          <% if (project.photo) { %>
+            <img src="<%= project.photo %>" alt="Foto del autor" />
+          <% } %>
         </div>
-        <p class="author__job">Full Stack Developer</p>
-        <h2 class="author__name"><%= project.author %></h2>
+        <div class="author__info">
+          <h2 class="author__info--name">
+            <%= project.author || "Autor/a desconocido/a" %>
+          </h2>
+          <p class="author__info--job"><%= project.job || "" %></p>
+        </div>
       </section>
 
       <!-- PROYECTO -->
       <section class="project">
-        <h1 class="project__name"><%= project.name %></h1>
-        <p class="project__slogan"><%= project.slogan %></p>
-
-        <h3 class="project__title">Product description</h3>
-        <p class="project__description"><%= project.description %></p>
-
-        <p class="project__technologies"><%= project.technologies %></p>
-
-        <div class="project__links">
-          <a href="#" class="project__link demo"><%= project.demo %></a>
-          <a href="#" class="project__link repo"><%= project.repo %></a>
+        <div class="project__header">
+          <h1 class="project__header--name">
+            <%= project.name || "Proyecto sin nombre" %>
+          </h1>
+          <% if (project.slogan) { %>
+            <p class="project__header--slogan"><%= project.slogan %></p>
+          <% } %>
         </div>
-      </section>
+        <div class="project__info">
+          <% if (project.description) { %>
+            <h3 class="project__info--title">Product description</h3>
+            <p class="project__info--description"><%= project.description %></p>
+          <% } %>
 
+          <% if (project.technologies) { %>
+            <p class="project__info--technologies"><%= project.technologies %></p>
+          <% } %>
+        </div>
+
+        <% if (project.image) { %>
+          <div class="project__image">
+            <img
+              src="<%= project.image %>"
+              alt="Foto del proyecto"
+              class="project__image--img"
+            />
+          </div>
+        <% } %>
+
+        <% if (project.demo || project.repo) { %>
+          <% const hasDemo = Boolean(project.demo); %>
+          <% const hasRepo = Boolean(project.repo); %>
+          <div
+            class="project__links <%= hasDemo && hasRepo ? 'project__links--two' : 'project__links--one' %>"
+          >
+            <% if (hasDemo) { %>
+              <a
+                href="<%= project.demo %>"
+                class="project__links--link demo"
+                target="_blank"
+                rel="noreferrer"
+              ></a>
+            <% } %>
+            <% if (hasRepo) { %>
+              <a
+                href="<%= project.repo %>"
+                class="project__links--link repo"
+                target="_blank"
+                rel="noreferrer"
+              ></a>
+            <% } %>
+          </div>
+        <% } %>
+      </section>
       <!-- VOLVER -->
-      <a href="http://localhost:5173" class="back"> ⬅ Volver a proyectos </a>
+      <a href="/" class="back"> ⬅ Volver a proyectos </a>
     </main>
   </body>
 </html>

@@ -104,7 +104,22 @@ app.get("/api/project/:projectId", async (req, res) => {
     connection.end();
 
     if (rows.length > 0) {
-      return res.render("details", { project: rows[0] });
+      const project = rows[0];
+      const normalizedProject = {
+        id: project.id ?? "",
+        name: project.name ?? "",
+        slogan: project.slogan ?? "",
+        description: project.description ?? "",
+        technologies: project.technologies ?? "",
+        image: project.image ?? "",
+        repo: project.repo ?? "",
+        demo: project.demo ?? "",
+        author: project.author ?? "",
+        job: project.job ?? "",
+        photo: project.photo ?? "",
+      };
+
+      return res.render("details", { project: normalizedProject });
     } else {
       res.render("dataErrorDetail");
     }
