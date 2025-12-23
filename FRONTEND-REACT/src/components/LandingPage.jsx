@@ -21,7 +21,7 @@ function LandingPage({serverUrl}) {
           Crear proyecto
         </Link>
       </Hero>
-      <CardList cardsData={cardsData} />
+      <CardList cardsData={cardsData} serverUrl={serverUrl} />
     </>
   );
 }
