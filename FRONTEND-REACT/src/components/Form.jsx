@@ -24,7 +24,7 @@ function Form({
 
   const handleClick = (ev) => {
     ev.preventDefault();
-    fetch(`${serverUrl}/api/projectsCard`, {
+    fetch(`${serverUrl}/api/projectCard`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
