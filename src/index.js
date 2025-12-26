@@ -84,7 +84,7 @@ app.post("/api/projectCard", async (req, res) => {
 
   res.json({
     success: true,
-    cardURL: `${req.headers.host}/api/project/${resultInsertProject.insertId}`,
+    cardURL: `/api/project/${resultInsertProject.insertId}`,
   });
 });
 app.get("/api/project/:projectId", async (req, res) => {
